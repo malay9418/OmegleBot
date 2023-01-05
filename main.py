@@ -67,7 +67,7 @@ async def findPartner(user):
     }]).next()["me"]
     offline(partner)
   except:
-    awai asyncio.sleep(10)
+    await asyncio.sleep(10)
     partner = None
   return partner
 
