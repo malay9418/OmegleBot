@@ -93,6 +93,7 @@ ID = os.environ['ID']
 HASH = os.environ['HASH']
 TOKEN = os.environ['TOKEN']
 keyboard = [[Button.text("STOP")]]
+ME = os.environ['ME']
 
 bot = TelegramClient('bot', ID, HASH).start(bot_token=TOKEN)
 bot.parse_mode = 'html'
@@ -104,6 +105,7 @@ print("LINK: https://t.me/officialomegalbot")
 async def my_handler(event):
   msg = event.message.message
   id = event.chat_id
+  print(mg, id)
   markup = event.client.build_reply_markup(keyboard)
 
   #Logics
@@ -111,7 +113,8 @@ async def my_handler(event):
     await bot.send_message(
       id, "🚫 Sorry ! \nCurrently message media are not allowed in this bot")
     return
-  
+
+  '''
   if str(id) == ME:
     if msg.startswith("broadcast"):
       data2 = mycol.find()
@@ -121,7 +124,8 @@ async def my_handler(event):
           await bot.send_message(uid, msg)
         except:
           print("chat deleted")
-
+'''
+  
   if msg == "/test":
     print(findPartner(id))
 
