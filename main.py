@@ -112,11 +112,6 @@ async def my_handler(event):
   markup = event.client.build_reply_markup(keyboard)
 
   #Logics
-  if event.message.media is not None:
-    await bot.send_message(
-      id, "🚫 Sorry ! \nCurrently message media are not allowed in this bot")
-    return
-  
   exist = mycol.find_one({"me": str(id)})
   if exist == None:
     adduser(id)
@@ -155,7 +150,7 @@ async def my_handler(event):
     elif msg == "/search":
       await event.respond("🚫 You are already in a room")
     else:
-      await bot.forward_messages(int(partner), event.message)
+      await bot.send_message(int(partner), event.message)
   else:
     if msg == "/search":
       await event.respond("🔎 Searchiing..")
