@@ -55,20 +55,23 @@ def delroom(user):
 
 async def findPartner(user):
   #print("fiind partner")
+  partner = None
   offline(user)
-  qury = {"online": True, "room": None}
-  try:
-    partner = mycol.aggregate([{
-      "$match": qury
-    }, {
-      "$sample": {
-        "size": 1
-      }
-    }]).next()["me"]
-    offline(partner)
-  except:
-    await asyncio.sleep(10)
-    partner = None
+  i = 0
+  while i<5:
+    qury = {"online": True, "room": None}
+    try:
+      partner = mycol.aggregate([{
+        "$match": qury
+      }, {
+        "$sample": {
+          "size": 1
+        }
+      }]).next()["me"]
+      offline(partner)
+      break
+    except:
+      await asyncio.sleep(0.5)
   return partner
 
 
