@@ -53,7 +53,7 @@ def delroom(user):
   mycol.update_one(qury2, newdata2)
 
 
-def findPartner(user):
+async def findPartner(user):
   #print("fiind partner")
   offline(user)
   qury = {"online": True, "room": None}
@@ -67,6 +67,7 @@ def findPartner(user):
     }]).next()["me"]
     offline(partner)
   except:
+    asyncio.sleep(10)
     partner = None
   return partner
 
@@ -145,7 +146,7 @@ async def my_handler(event):
       await event.respond("🔎 Searchiing..")
       selector = random.choice(range(0, 2))
       if selector:
-        partner = findPartner(id)
+        partner = await findPartner(id)
         if not partner == None:
           createroom(id, partner)
           await event.respond("👤 User found", buttons=markup)
