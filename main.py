@@ -110,14 +110,12 @@ async def my_handler(event):
   msg = event.message.message
   id = event.chat_id
   markup = event.client.build_reply_markup(keyboard)
-
-  #Logics
   exist = mycol.find_one({"me": str(id)})
   if exist == None:
     adduser(id)
 
   if str(id) == ME:
-    if msg.startswith("broadcast"):
+    if msg.startswith("UPDATE"):
       data2 = mycol.find()
       for user in data2:
         uid = int(user["me"])
