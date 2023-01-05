@@ -153,9 +153,9 @@ async def my_handler(event):
         buttons=Button.clear())
 
     elif msg == "/search":
-      await event.respond("You are already in a room")
+      await event.respond("🚫 You are already in a room")
     else:
-      await bot.send_message(int(partner), msg)
+      await bot.forward_messages(int(partner), event.message)
   else:
     if msg == "/search":
       await event.respond("🔎 Searchiing..")
