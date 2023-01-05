@@ -112,6 +112,10 @@ async def my_handler(event):
     await bot.send_message(
       id, "🚫 Sorry ! \nCurrently message media are not allowed in this bot")
     return
+  
+  exist = mycol.find_one({"me": str(id)})
+  if exist == None:
+    adduser(id)
 
   if str(id) == ME:
     if msg.startswith("broadcast"):
@@ -127,10 +131,6 @@ async def my_handler(event):
     await event.respond(str(id))
 
   if msg == "/start":
-    exist = mycol.find_one({"me": str(id)})
-    if exist == None:
-      adduser(id)
-      #print("User added")
     await bot.send_message(
       id, "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner")
     return
