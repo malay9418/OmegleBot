@@ -105,7 +105,6 @@ print("LINK: https://t.me/officialomegalbot")
 async def my_handler(event):
   msg = event.message.message
   id = event.chat_id
-  print(mg, id)
   markup = event.client.build_reply_markup(keyboard)
 
   #Logics
@@ -124,8 +123,8 @@ async def my_handler(event):
         except:
           print("chat deleted")
   
-  if msg == "/test":
-    print(findPartner(id))
+  if msg == "/self":
+    await event.respond(str(id))
 
   if msg == "/start":
     exist = mycol.find_one({"me": str(id)})
