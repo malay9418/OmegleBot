@@ -114,7 +114,6 @@ async def my_handler(event):
       id, "🚫 Sorry ! \nCurrently message media are not allowed in this bot")
     return
 
-  '''
   if str(id) == ME:
     if msg.startswith("broadcast"):
       data2 = mycol.find()
@@ -124,7 +123,6 @@ async def my_handler(event):
           await bot.send_message(uid, msg)
         except:
           print("chat deleted")
-'''
   
   if msg == "/test":
     print(findPartner(id))
