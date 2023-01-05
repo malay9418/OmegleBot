@@ -122,10 +122,13 @@ async def my_handler(event):
         try:
           await bot.send_message(uid, msg)
         except:
-          print("chat deleted")
+          print("chat deleted, id: ", str(id))
   
   if msg == "/self":
     await event.respond(str(id))
+  elif msg == "/num":
+    num_docs = mycol.count_documents({})
+    await event.respond(str(num_docs))
 
   if msg == "/start":
     await bot.send_message(
