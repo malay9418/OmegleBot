@@ -71,6 +71,7 @@ async def findPartner(user):
       offline(partner)
       break
     except:
+      i += 1
       await asyncio.sleep(0.5)
   return partner
 
