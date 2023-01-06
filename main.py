@@ -133,7 +133,7 @@ async def my_handler(event):
     partner = getroom(id)
     if msg == "/start":
       await bot.send_message(
-      id, "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner", buttons=markup)
+      id, "Welcome back to Omegal Bot 🐤 !\nNOTE: You are in a room", buttons=markup)
       return
       
     elif msg == "DISCONECT":
