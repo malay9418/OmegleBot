@@ -126,7 +126,7 @@ async def my_handler(event):
         try:
           await bot.send_message(uid, msg)
         except:
-          print("chat deleted, id: ", str(id))
+          print("chat deleted, id: ", str(uid))
   
   if msg == "/self":
     await event.respond(str(id))
