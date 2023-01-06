@@ -96,7 +96,11 @@ async def getPartner(user):
 ID = os.environ['ID']
 HASH = os.environ['HASH']
 TOKEN = os.environ['TOKEN']
-keyboard = [[Button.text("STOP")]]
+keyboard = [
+  [Button.text('M or F?', resize=True, single_use=True)],
+  [Button.text('DISCONECT', resize=True, single_use=True)],
+  [Button.request_phone('SHARE CONTACT')],
+]
 ME = os.environ['ME']
 
 bot = TelegramClient('bot', ID, HASH).start(bot_token=TOKEN)
@@ -138,7 +142,7 @@ async def my_handler(event):
   room = not (getroom(id) == None)
   if room:
     partner = getroom(id)
-    if msg == "STOP":
+    if msg == "DISCONECT":
       delroom(id)
       await event.respond(
         "🚫 Disconnected \nMENU\n/search - 🔎 to search a partner",
