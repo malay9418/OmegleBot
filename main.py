@@ -161,17 +161,12 @@ async def my_handler(event):
             await event.respond("👤 User found", buttons=markup)
             await bot.send_message(int(partner), "👤 User found", buttons=markup)
             return
-          else:
-            await event.respond("☹ No one is online")
-            return
         else:
           partner = await getPartner(id)
           if not partner == None:
             return
-          else:
-            await event.respond("☹ No one is online")
-            return
         i += 1
+      await event.respond("☹ No one is online")
 
 
 if __name__ == "__main__":
