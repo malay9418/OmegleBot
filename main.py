@@ -63,7 +63,7 @@ async def findPartner(user):
       "$match": qury
     }, {
       "$sample": {
-      "size": 1
+        "size": 1
       }
     }]).next()["me"]
     offline(partner)
@@ -119,7 +119,7 @@ async def my_handler(event):
           await bot.send_message(uid, msg)
         except:
           print("chat deleted, id: ", str(uid))
-  
+
   if msg == "/self":
     await event.respond(str(id))
   elif msg == "/num":
@@ -152,20 +152,18 @@ async def my_handler(event):
     if msg == "/search":
       i = 0
       edmsg = await event.respond("🔎 Searchiing..")
-      while i<5:
+      while i < 5:
         selector = random.choice(range(0, 2))
         if selector:
           partner = await findPartner(id)
           if not partner == None:
             createroom(id, partner)
-            edmsg.delete()
-            event.respond("👤 User found 😁", buttons=markup)
+            await bot.edit_message(edmsg, "👤 User found 😁", buttons=markup)
             return
         else:
           partner = await getPartner(id)
           if not partner == None:
-            edmsg.delete()
-            event.respond("👤 User found 😁", buttons=markup)
+            await bot.edit_message(edmsg, "👤 User found 😁", buttons=markup)
             return
         i += 1
       await bot.edit_message(edmsg, "☹ No one is online")
