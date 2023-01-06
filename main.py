@@ -183,12 +183,14 @@ async def my_handler(event):
       while i < 5:
         selector = random.choice(range(0, 2))
         if selector:
+          offline(str(id))
           partner = await findPartner(id)
           if not (partner == None):
             createroom(id, partner)
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
             return
         else:
+          offline(str(id))
           partner = await getPartner(id)
           if not partner == None:
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
