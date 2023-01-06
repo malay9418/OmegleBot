@@ -192,11 +192,13 @@ async def my_handler(event):
           if not (partner == None):
             createroom(id, partner)
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
+            search(id, False)
             return
         else:
           partner = await getPartner(id)
           if not partner == None:
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
+            search(id, False)
             return
         i += 1
       await bot.edit_message(edmsg, "☹ No one is online")
