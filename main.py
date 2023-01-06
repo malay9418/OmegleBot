@@ -7,13 +7,13 @@ import asyncio
 URL = os.environ['MONGO_URL']
 client = pymongo.MongoClient(URL)
 
-mydb = client["omegal"]
-mycol = mydb["omgbot"]
+mydb = client["omegal2"]
+mycol = mydb["omgbot2"]
 print("Succesfully connected to database")
 
 
 def adduser(user):
-  data = {"me": str(user), "online": False, "room": None}
+  data = {"me": str(user), "online": False, "room": None, "searching": False}
   mycol.insert_one(data)
 
 
@@ -28,6 +28,10 @@ def offline(user):
   newdata = {"$set": {"online": False}}
   mycol.update_one(qury, newdata)
 
+def search(user, state):
+  qury = {"me": str(user)}
+  newdata = {"$set": {"searching": state}}
+  mycol.update_one(qury, newdata)
 
 def getroom(user):
   partner = mycol.find_one({"me": str(user)})["room"]
@@ -69,6 +73,8 @@ async def findPartner(user):
     offline(partner)
   except:
     await asyncio.sleep(0.5)
+  if partner == str(user):
+    partner = None
   return partner
 
 
@@ -81,6 +87,8 @@ async def getPartner(user):
     partner = "found"
   else:
     offline(user)
+  if partner == str(user):
+    partner = None
   return partner
 
 
@@ -129,6 +137,18 @@ async def my_handler(event):
 
 
   room = not (getroom(id) == None)
+  try:
+    searching = mycol.find_one({"me": str(id)})["searching"]
+  except:
+    search(id, False)
+    searching = False
+
+  if searching == True:
+    work = await event.respond("Please wait..")
+    await asyncio.sleep(1)
+    await work.delete()
+    return
+    
   if room:
     partner = getroom(id)
     if msg == "/start":
@@ -158,12 +178,13 @@ async def my_handler(event):
       
     if msg == "/search":
       i = 0
+      search(id, True)
       edmsg = await event.respond("🔎 Searchiing..")
       while i < 5:
         selector = random.choice(range(0, 2))
         if selector:
           partner = await findPartner(id)
-          if not partner == None:
+          if not (partner == None):
             createroom(id, partner)
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
             return
@@ -174,8 +195,10 @@ async def my_handler(event):
             return
         i += 1
       await bot.edit_message(edmsg, "☹ No one is online")
+      search(id, False)
       #await event.respond("☹ No one is online")
 
 
 if __name__ == "__main__":
   bot.run_until_disconnected()
+  
