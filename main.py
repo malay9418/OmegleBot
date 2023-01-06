@@ -151,22 +151,24 @@ async def my_handler(event):
   else:
     if msg == "/search":
       i = 0
-      await event.respond("🔎 Searchiing..")
+      edmsg = await event.respond("🔎 Searchiing..")
       while i<5:
         selector = random.choice(range(0, 2))
         if selector:
           partner = await findPartner(id)
           if not partner == None:
             createroom(id, partner)
-            await event.respond("👤 User found", buttons=markup)
+            await bot.edit_message(edmsg, "👤 User found", buttons=markup) #event.respond("👤 User found", buttons=markup)
             await bot.send_message(int(partner), "👤 User found", buttons=markup)
             return
         else:
           partner = await getPartner(id)
           if not partner == None:
+            await bot.edit_message(edmsg, "👤 User found", buttons=markup)
             return
         i += 1
-      await event.respond("☹ No one is online")
+      await bot.edit_message(edmsg, "☹ No one is online")
+      #await event.respond("☹ No one is online")
 
 
 if __name__ == "__main__":
