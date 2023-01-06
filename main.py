@@ -159,13 +159,13 @@ async def my_handler(event):
           partner = await findPartner(id)
           if not partner == None:
             createroom(id, partner)
-            await edmsg.delete()
+            #await edmsg.delete()
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
             return
         else:
           partner = await getPartner(id)
           if not partner == None:
-            await edmsg.delete()
+            #await edmsg.delete()
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
             return
         i += 1
