@@ -7,8 +7,8 @@ import asyncio
 URL = os.environ['MONGO_URL']
 client = pymongo.MongoClient(URL)
 
-mydb = client["omegal2"]
-mycol = mydb["omgbot2"]
+mydb = client["omegal"]
+mycol = mydb["omgbot"]
 print("Succesfully connected to database")
 
 
@@ -142,6 +142,8 @@ async def my_handler(event):
     searching = mycol.find_one({"me": str(id)})["searching"]
   except:
     print("DB error: ", str(id))
+    search(id, False)
+    searching = mycol.find_one({"me": str(id)})["searching"]
 
   if searching == True:
     work = await event.respond("Please wait..")
