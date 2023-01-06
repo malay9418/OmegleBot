@@ -57,38 +57,30 @@ async def findPartner(user):
   #print("fiind partner")
   partner = None
   offline(user)
-  i = 0
-  while i<5:
-    qury = {"online": True, "room": None}
-    try:
-      partner = mycol.aggregate([{
-        "$match": qury
-      }, {
-        "$sample": {
-          "size": 1
-        }
-      }]).next()["me"]
-      offline(partner)
-      break
-    except:
-      i += 1
-      await asyncio.sleep(0.5)
+  qury = {"online": True, "room": None}
+  try:
+    partner = mycol.aggregate([{
+      "$match": qury
+    }, {
+      "$sample": {
+      "size": 1
+      }
+    }]).next()["me"]
+    offline(partner)
+  except:
+    await asyncio.sleep(0.5)
   return partner
 
 
 async def getPartner(user):
   #print("getPartner")
-  i = 0
-  while i < 5:
-    partner = None
-    online(user)
-    await asyncio.sleep(0.5)
-    if not mycol.find_one({"me": str(user)})["online"]:
-      partner = "found"
-      break
-    else:
-      i += 1
-  offline(user)
+  partner = None
+  online(user)
+  await asyncio.sleep(0.5)
+  if not mycol.find_one({"me": str(user)})["online"]:
+    partner = "found"
+  else:
+    offline(user)
   return partner
 
 
@@ -158,22 +150,27 @@ async def my_handler(event):
       await bot.send_message(int(partner), event.message)
   else:
     if msg == "/search":
+      i = 0
       await event.respond("🔎 Searchiing..")
-      selector = random.choice(range(0, 2))
-      if selector:
-        partner = await findPartner(id)
-        if not partner == None:
-          createroom(id, partner)
-          await event.respond("👤 User found", buttons=markup)
-          await bot.send_message(int(partner), "👤 User found", buttons=markup)
+      while i<5:
+        selector = random.choice(range(0, 2))
+        if selector:
+          partner = await findPartner(id)
+          if not partner == None:
+            createroom(id, partner)
+            await event.respond("👤 User found", buttons=markup)
+            await bot.send_message(int(partner), "👤 User found", buttons=markup)
+            return
+          else:
+            await event.respond("☹ No one is online")
         else:
-          await event.respond("☹ No one is online")
-      else:
-        partner = await getPartner(id)
-        if not partner == None:
-          return
-        else:
-          await event.respond("☹ No one is online")
+          partner = await getPartner(id)
+          if not partner == None:
+            return
+          else:
+            await event.respond("☹ No one is online")
+        i += 1
+        print("i: ", i)
 
 
 if __name__ == "__main__":
