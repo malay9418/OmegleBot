@@ -28,10 +28,12 @@ def offline(user):
   newdata = {"$set": {"online": False}}
   mycol.update_one(qury, newdata)
 
+
 def search(user, state):
   qury = {"me": str(user)}
   newdata = {"$set": {"searching": state}}
   mycol.update_one(qury, newdata)
+
 
 def getroom(user):
   partner = mycol.find_one({"me": str(user)})["room"]
@@ -135,7 +137,6 @@ async def my_handler(event):
     num_docs = mycol.count_documents({})
     await event.respond(str(num_docs))
 
-
   room = not (getroom(id) == None)
   try:
     searching = mycol.find_one({"me": str(id)})["searching"]
@@ -148,14 +149,16 @@ async def my_handler(event):
     await asyncio.sleep(1)
     await work.delete()
     return
-    
+
   if room:
     partner = getroom(id)
     if msg == "/start":
       await bot.send_message(
-      id, "Welcome back to Omegal Bot 🐤 !\nNOTE: You are in a room", buttons=markup)
+        id,
+        "Welcome back to Omegal Bot 🐤 !\nNOTE: You are in a room",
+        buttons=markup)
       return
-      
+
     elif msg == "DISCONECT":
       delroom(id)
       await event.respond(
@@ -173,9 +176,10 @@ async def my_handler(event):
   else:
     if msg == "/start":
       await bot.send_message(
-      id, "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner")
+        id,
+        "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner")
       return
-      
+
     if msg == "/search":
       i = 0
       search(id, True)
@@ -183,14 +187,12 @@ async def my_handler(event):
       while i < 5:
         selector = random.choice(range(0, 2))
         if selector:
-          offline(str(id))
           partner = await findPartner(id)
           if not (partner == None):
             createroom(id, partner)
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
             return
         else:
-          offline(str(id))
           partner = await getPartner(id)
           if not partner == None:
             await event.respond("👩‍❤️‍👨 Partner found 😁", buttons=markup)
@@ -203,4 +205,3 @@ async def my_handler(event):
 
 if __name__ == "__main__":
   bot.run_until_disconnected()
-  
