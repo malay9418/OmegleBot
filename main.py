@@ -127,15 +127,16 @@ async def my_handler(event):
     num_docs = mycol.count_documents({})
     await event.respond(str(num_docs))
 
-  if msg == "/start":
-    await bot.send_message(
-      id, "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner")
-    return
 
   room = not (getroom(id) == None)
   if room:
     partner = getroom(id)
-    if msg == "DISCONECT":
+    if msg == "/start":
+      await bot.send_message(
+      id, "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner", buttons=markup)
+      return
+      
+    elif msg == "DISCONECT":
       delroom(id)
       await event.respond(
         "🚫 Disconnected \nMENU\n/search - 🔎 to search a partner",
@@ -150,6 +151,11 @@ async def my_handler(event):
     else:
       await bot.send_message(int(partner), event.message)
   else:
+    if msg == "/start":
+      await bot.send_message(
+      id, "Welcome to Omegal Bot 🐤 ! \nMENU\n/search - 🔎 to search a partner")
+      return
+      
     if msg == "/search":
       i = 0
       edmsg = await event.respond("🔎 Searchiing..")
