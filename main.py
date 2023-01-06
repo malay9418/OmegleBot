@@ -92,7 +92,8 @@ keyboard = [
   [Button.text('M or F?', resize=True, single_use=True)],
   [Button.text('DISCONECT', resize=True, single_use=True)],
   [Button.request_phone('SHARE CONTACT')],
-]
+  [Button.request_location('SHARE LOCATION')],
+],
 ME = os.environ['ME']
 
 bot = TelegramClient('bot', ID, HASH).start(bot_token=TOKEN)
