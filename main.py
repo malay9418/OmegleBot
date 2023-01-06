@@ -141,8 +141,8 @@ async def my_handler(event):
   try:
     searching = mycol.find_one({"me": str(id)})["searching"]
   except:
-    search(id, False)
-    searching = False
+    print("DB error: ", str(id))
+    searching = True
 
   if searching == True:
     work = await event.respond("Please wait..")
