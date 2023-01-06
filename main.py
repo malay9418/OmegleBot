@@ -163,14 +163,15 @@ async def my_handler(event):
             return
           else:
             await event.respond("☹ No one is online")
+            return
         else:
           partner = await getPartner(id)
           if not partner == None:
             return
           else:
             await event.respond("☹ No one is online")
+            return
         i += 1
-        print("i: ", i)
 
 
 if __name__ == "__main__":
