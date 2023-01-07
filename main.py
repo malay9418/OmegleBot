@@ -156,18 +156,18 @@ async def my_handler(event):
     if msg == "/start":
       await bot.send_message(
         id,
-        "Welcome back to Omegal Bot 🐤 !\nJoin our friends group:- @officialomegalbot \nNOTE: You are in a room",
+        "Welcome back to Omegal Bot 🐤 !\nJoin our friends group:- @makefriendforever\nNOTE: You are in a room",
         buttons=markup)
       return
 
     elif msg == "DISCONECT":
       delroom(id)
       await event.respond(
-        "🚫 Disconnected \nJoin friends group:- @officialomegalbot\nMENU\n/search - 🔎 to search a partner",
+        "🚫 Disconnected \nJoin friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner",
         buttons=Button.clear())
       await bot.send_message(
         int(partner),
-        "🚫 Disconnected \n Join friends group:- @officialomegalbot\nMENU\n/search - 🔎 to search a partner",
+        "🚫 Disconnected \n Join friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner",
         buttons=Button.clear())
 
     elif msg == "/search":
@@ -178,7 +178,7 @@ async def my_handler(event):
     if msg == "/start":
       await bot.send_message(
         id,
-        "Welcome to Omegal Bot 🐤 !\nJoin our friends group:- @officialomegalbot \nMENU\n/search - 🔎 to search a partner")
+        "Welcome to Omegal Bot 🐤 !\nJoin our friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner")
       return
 
     if msg == "/search":
