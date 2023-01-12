@@ -156,7 +156,7 @@ async def my_handler(event):
     if msg == "/start":
       await bot.send_message(
         id,
-        "Welcome back to Omegal Bot 🐤 !\nJoin our friends group:- @makefriendforever\nNOTE: You are in a room",
+        "Welcome back to Anoynmous Chat Bot 🐤 !\nJoin our friends group:- @makefriendforever\nNOTE: You are in a room",
         buttons=markup)
       return
 
@@ -170,7 +170,7 @@ async def my_handler(event):
         "🚫 Disconnected \n Join friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner",
         buttons=Button.clear())
 
-    elif msg == "/search":
+    elif msg == "/random":
       await event.respond("🚫 You are already in a room")
     else:
       await bot.send_message(int(partner), event.message)
@@ -178,10 +178,11 @@ async def my_handler(event):
     if msg == "/start":
       await bot.send_message(
         id,
-        "Welcome to Omegal Bot 🐤 !\nJoin our friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner")
+        "Welcome to Anoynmous Chat Bot 🐤 !\nJoin our friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner"
+      )
       return
 
-    if msg == "/search":
+    if msg == "/random":
       i = 0
       search(id, True)
       edmsg = await event.respond("🔎 Searchiing..")
@@ -203,7 +204,6 @@ async def my_handler(event):
         i += 1
       await bot.edit_message(edmsg, "☹ No one is online")
       search(id, False)
-      #await event.respond("☹ No one is online")
 
 
 if __name__ == "__main__":
