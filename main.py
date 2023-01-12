@@ -163,11 +163,11 @@ async def my_handler(event):
     elif msg == "DISCONECT":
       delroom(id)
       await event.respond(
-        "🚫 Disconnected \nJoin friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner",
+        "🚫 Disconnected \nJoin friends group:- @makefriendforever\nMENU\n/random - 🔎 to search a partner",
         buttons=Button.clear())
       await bot.send_message(
         int(partner),
-        "🚫 Disconnected \n Join friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner",
+        "🚫 Disconnected \n Join friends group:- @makefriendforever\nMENU\n/random - 🔎 to search a partner",
         buttons=Button.clear())
 
     elif msg == "/random":
@@ -178,7 +178,7 @@ async def my_handler(event):
     if msg == "/start":
       await bot.send_message(
         id,
-        "Welcome to Anoynmous Chat Bot 🐤 !\nJoin our friends group:- @makefriendforever\nMENU\n/search - 🔎 to search a partner"
+        "Welcome to Anoynmous Chat Bot 🐤 !\nJoin our friends group:- @makefriendforever\nMENU\n/random - 🔎 to search a partner"
       )
       return
 
